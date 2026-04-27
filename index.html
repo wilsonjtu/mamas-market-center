@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mama's Market Center</title>
+    <!-- Linking your external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="top-wrap">
+        <!-- Left Side: News & Video -->
+        <div class="left-col">
+            <div class="ticker-top">
+				<div class="ticker-content" id="news-ticker-content">
+					Loading headlines...
+				</div>
+            </div>
+            <div class="video-player-container">
+                <video id="video" controls autoplay muted playsinline></video>
+            </div>
+			<div class="dash-links-container">
+				<div class="links-header">Market Resources</div>
+				<div class="links-grid">
+					<a href="https://www.tradingview.com/markets/indices/quotes-major/" target="_blank" class="dash-link">Major world indices</a>
+					<a href="https://www.tradingview.com/markets/indices/quotes-us/" target="_blank" class="dash-link">US indices</a>
+					<a href="https://www.tradingview.com/markets/indices/quotes-currency/" target="_blank" class="dash-link">Currency indices</a>
+					<a href="https://www.tradingview.com/markets/stocks-usa/sectorandindustry-sector/" target="_blank" class="dash-link">Sectors</a>
+
+					<a href="https://www.tradingview.com/markets/cryptocurrencies/prices-all/" target="_blank" class="dash-link">Crypto market</a>
+					<a href="https://www.tradingview.com/markets/futures/quotes-all/" target="_blank" class="dash-link">Futures market</a>
+					<a href="https://www.tradingview.com/markets/bonds/" target="_blank" class="dash-link">Government bonds</a>
+					<a href="https://www.tradingview.com/markets/etfs/" target="_blank" class="dash-link">ETF market</a>
+				</div>
+			</div>
+        </div>
+
+        <!-- Right Side: Reuters Market Charts -->
+        <div class="right-col">
+            <hr>
+            <b style="font-size: 1.2em;">Latest market charts</b><br>
+            <font size="1" id="clock"></font><p>
+
+			<!-- Duration Controls -->
+			<div class="duration-controls">
+				<button class="dur-btn active" onclick="setChartDuration(1, this)">1dy</button>
+				<button class="dur-btn" onclick="setChartDuration(30, this)">1mo</button>
+				<button class="dur-btn" onclick="setChartDuration(90, this)">3mo</button>
+				<button class="dur-btn" onclick="setChartDuration(365, this)">1yr</button>
+			</div>
+			
+            <font size="2"><i>Charts refresh automatically.</i></font>
+            <hr>
+            <table class="chart-table">
+                <tr>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.DJI&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                    <td class="divider-v"></td>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.SPX&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                </tr>
+                <tr>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.IXIC&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                    <td class="divider-v"></td>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.MID&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                </tr>
+                <tr>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.NDX&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                    <td class="divider-v"></td>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.SPCY&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                </tr>
+                <tr>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.XAU&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                    <td class="divider-v"></td>
+                    <td><img src="https://www.reuters.wallst.com/enhancements/chartapi/index_chart_api.asp?symbol=.XOI&headerType=quote&width=300&height=180&duration=1&showLastClose=1"></td>
+                </tr>
+            </table>
+            <hr>
+        </div>
+    </div>
+
+    <!-- FULL WIDTH TICKER -->
+    <div class="ticker-bottom">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+              "symbols": [
+				{ "proName": "FOREXCOM:DJI", "title": "Dow Jones Industrial Average" },
+                { "proName": "FOREXCOM:SPX500", "title": "S&P 500" },
+                { "proName": "FOREXCOM:NSXUSD", "title": "Nasdaq 100" },
+                { "proName": "BITSTAMP:BTCUSD", "title": "Bitcoin" },
+				{ "proName": "NYSE:MMM", "title": "3M" },
+				{ "proName": "NASDAQ:AMZN", "title": "Amazon" },
+				{ "proName": "NYSE:AXP", "title": "Amex" },
+				{ "proName": "NASDAQ:AMGN", "title": "Amgen" },
+				{ "proName": "NASDAQ:AAPL", "title": "Apple" },
+				{ "proName": "NYSE:BA", "title": "Boeing" },
+				{ "proName": "NYSE:CAT", "title": "Caterpillar" },
+				{ "proName": "NYSE:CVX", "title": "Chevron" },
+				{ "proName": "NASDAQ:CSCO", "title": "Cisco" },
+				{ "proName": "NYSE:KO", "title": "Coca-Cola" },
+				{ "proName": "NYSE:DIS", "title": "Disney" },
+				{ "proName": "NYSE:GS", "title": "Goldman Sachs" },
+				{ "proName": "NYSE:HD", "title": "Home Depot" },
+				{ "proName": "NASDAQ:HON", "title": "Honeywell" },
+				{ "proName": "NYSE:IBM", "title": "IBM" },
+				{ "proName": "NYSE:JNJ", "title": "Johnson & Johnson" },
+				{ "proName": "NYSE:JPM", "title": "JPMorgan" },
+				{ "proName": "NYSE:MCD", "title": "McDonald's" },
+				{ "proName": "NYSE:MRK", "title": "Merck" },
+				{ "proName": "NASDAQ:MSFT", "title": "Microsoft" },
+				{ "proName": "NYSE:NKE", "title": "Nike" },
+				{ "proName": "NASDAQ:NVDA", "title": "Nvidia" },
+				{ "proName": "NYSE:PG", "title": "Procter & Gamble" },
+				{ "proName": "NYSE:CRM", "title": "Salesforce" },
+				{ "proName": "NYSE:SHW", "title": "Sherwin-Williams" },
+				{ "proName": "NYSE:TRV", "title": "Travelers" },
+				{ "proName": "NYSE:UNH", "title": "UnitedHealth" },
+				{ "proName": "NYSE:VZ", "title": "Verizon" },
+				{ "proName": "NYSE:V", "title": "Visa" },
+				{ "proName": "NASDAQ:WMT", "title": "Walmart" }
+              ],
+              "showSymbolLogo": true,
+              "colorTheme": "light",
+              "isTransparent": false,
+              "displayMode": "adaptive",
+              "locale": "en"
+            }
+            </script>
+        </div>
+    </div>
+
+    <!-- External Script Dependencies -->
+	    <script src="news-ticker.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="video-logic.js"></script>
+    <script src="dashboard-logic.js"></script>
+
+</body>
+</html>
