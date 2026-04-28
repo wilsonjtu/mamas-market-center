@@ -122,34 +122,38 @@ video {
 }
 
 
-/* Right Column: Market Charts */
-.right-col { 
-    flex: 1; 
-    display: flex; 
-    flex-direction: column; 
-    background: #fff; 
-    color: #000; 
-    overflow-y: auto; 
-    text-align: center; 
+/* 1. Ensure the right column can shrink correctly */
+.right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    color: #000;
+    overflow-y: auto;
+    text-align: center; /* Centers inline elements like <b>, <font>, and <i> tags */
+    padding: 20px 10px; /* Added more vertical padding for a better feel */
 }
 
-/* Reuters Chart Table Styling */
-.chart-table { 
-    margin: 0 auto; 
-    border-collapse: collapse; 
+/* 2. Make the chart table responsive */
+.chart-table {
+    margin-left: auto;  /* Classic way to center block-level elements */
+    margin-right: auto;
+    border-collapse: collapse;
 }
 
 .chart-table td {
-    padding: 15px; /* Spacing around charts */
+    padding: 15px;
+    text-align: center;
     vertical-align: middle;
 }
 
+/* 3. Make charts dynamically resize to fit the available space */
 .chart-table img {
+    max-width: 100%; /* Important: Prevents chart from being wider than its cell */
+    height: auto;    /* Maintains aspect ratio as it shrinks */
     display: block;
     margin: 0 auto;
-    border: 1px solid #eee; /* Subtle frame for the chart */
-    border-radius: 4px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Slight lift */
+    border-radius: 4px;
 }
 
 .divider-v { 
@@ -222,7 +226,9 @@ iframe {
 
 
 .duration-controls {
-    margin: 10px 0;
+    display: flex;
+    justify-content: center; /* Aligns the button group to the center */
+    margin: 15px 0;
 }
 
 .dur-btn {
@@ -277,4 +283,14 @@ iframe {
     .links-grid {
         grid-template-columns: 1fr 1fr; /* 2 columns of buttons instead of 4 */
     }
+}
+
+/* 4. iPad-specific adjustment (Portrait mode) */
+@media screen and (max-width: 1024px) {
+    .chart-table td {
+        padding: 5px; /* Tighter spacing for smaller screens */
+    }
+    
+    /* If the charts are still too cramped, stack them in 1 column on iPad */
+    /* .chart-table td { display: block; width: 100%; } */
 }
