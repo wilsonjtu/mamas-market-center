@@ -1,18 +1,3 @@
-function updateRefreshTime() {
-    var now = new Date();
-    var dat = (now.getMonth() + 1) + "/" + (((now.getDate() < 10) ? "0" : "") + now.getDate()) + "/" + now.getFullYear();
-    var hours = now.getHours();
-    var ampm = hours >= 12 ? ' PM' : ' AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12;
-    var tim = hours + (((now.getMinutes() < 10) ? ":0" : ":") + now.getMinutes()) + (((now.getSeconds() < 10) ? ":0" : ":") + now.getSeconds()) + ampm;
-    
-    var clockEl = document.getElementById('clock');
-    if(clockEl) {
-        clockEl.innerHTML = "Last Refresh: " + dat + " - " + tim;
-    }
-}
-
 let currentDuration = 1; // Default to 1 day
 
 function updateRefreshTime() {
@@ -24,8 +9,8 @@ function updateRefreshTime() {
     hours = hours ? hours : 12;
     var tim = hours + (((now.getMinutes() < 10) ? ":0" : ":") + now.getMinutes()) + (((now.getSeconds() < 10) ? ":0" : ":") + now.getSeconds()) + ampm;
     
-    var clockEl = document.getElementById('clock');
-    if(clockEl) clockEl.innerHTML = "Last Refresh: " + dat + " - " + tim;
+    var refreshEl = document.getElementById('refresh-timestamp');
+    if(refreshEl) refreshEl.innerHTML = "Last Refresh: " + dat + " - " + tim;
 }
 
 function refreshCharts() {
