@@ -1,6 +1,6 @@
 window.addEventListener('DOMContentLoaded', function() {
     var video = document.getElementById('video');
-    var streamUrl = 'https://www.bloomberg.com/media-manifest/streams/phoenix-us.m3u8';
+    var streamUrl = 'https://liveprodeuwest.global.ssl.fastly.net/eu1/Channel-EUTVqvs-AWS-ireland-2/Source-EUTVqvs-10000-1-sknn1p-BP-HD-5-N96E3tz8tVF7_live.m3u8';
 
     setTimeout(function() {
         if (Hls.isSupported()) {
