@@ -237,38 +237,37 @@ iframe {
 }
 
 /* ==========================================================================
-   MOBILE OPTIMIZATION (THE FIX)
+   MOBILE OPTIMIZATION (THE SMOOTH FIX)
    ========================================================================== */
 @media (max-width: 768px) {
-  /* STEP 1: Turn the main background frame into the master mobile scrollbar track */
+  /* MASTER FRAME: Force hardware acceleration to stop gesture hitches */
   body, html {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     height: auto !important;
+    -webkit-overflow-scrolling: touch !important; /* Fast mobile momentum physics */
   }
 
-  /* Unfold columns into a single long vertical stack tape list */
+  /* Single block scroll tape */
   .top-wrap {
-    display: flex !important;
-    flex-direction: column !important;
-    height: auto !important;
+    display: block !important;
     position: relative;
+    width: 100%;
+    height: auto !important;
     background: #ffffff;
-    /* Create empty whitespace layout space exactly equal to 16:9 widescreen mobile ratio */
-    padding-top: 56.25vw !important; 
+    padding-top: 56.25vw !important; /* Space buffer beneath fixed video window */
   }
 
-  /* Dissolve left column box so video container can interact with glass screen layer */
+  /* Break the nested wrapper structure completely */
   .left-col {
     display: contents !important;
   }
 
-  /* Remove top dark brown ticker from mobile viewport layout logic entirely */
   .ticker-top {
     display: none !important;
   }
 
-  /* STEP 2: Freeze video frame perfectly to the actual glass face of the device */
+  /* HARDWARE ACCELERATED VIDEO PANNING PANEL */
   .video-player-container {
     position: fixed !important;
     top: 0;
@@ -279,23 +278,32 @@ iframe {
     margin-top: 0 !important;
     border-top: none;
     background-color: #000;
-    z-index: 9999 !important; /* Forces it to sit strictly above content tape */
+    z-index: 9999 !important;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    
+    /* FIX: Force mobile hardware to isolate video from scroll painting */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
-  /* STEP 3: Strip internal scroll bars so layout flows together as a single thread */
+  /* FLUID STREAM CONTENT BLOCKS */
   .dash-links-container, 
   .right-col {
     display: block !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important; 
+    overflow: visible !important; /* Prevents colliding internal scroll capture fields */
     background: #ffffff !important;
     border-right: none !important;
     box-sizing: border-box;
+    
+    /* FIX: Promotes text layers to fast execution pools */
+    will-change: scroll-position;
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
   }
 
-  /* Spacing padding transitions underneath fixed video box */
   .dash-links-container {
     padding: 25px 15px 10px 15px !important;
   }
@@ -304,7 +312,6 @@ iframe {
     padding: 10px 10px 40px 10px !important;
   }
 
-  /* Clean responsive cell dimensions for small phone viewports */
   .chart-table td {
     display: block;
     width: 100%;
@@ -321,7 +328,7 @@ iframe {
   }
 }
 
-/* iPad Portrait view sizes */
+/* iPad Adjustments */
 @media screen and (max-width: 1024px) {
   .chart-table td {
     padding: 5px;
