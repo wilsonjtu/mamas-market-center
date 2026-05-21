@@ -1,208 +1,202 @@
 /* Layout & Base Styles */
-body, html { 
-    margin: 0; 
-    padding: 0; 
-    height: 100%; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-    background-color: #121212; 
-    color: white; 
-    overflow: hidden; 
-    display: flex; 
-    flex-direction: column; 
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #121212;
+  color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.top-wrap { 
-    display: flex; 
-    flex: 1; 
-    min-height: 0; 
+.top-wrap {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
 
 /* Left Column: Video & News */
-.left-col { 
-    flex: 0 0 55%; 
-    display: flex; 
-    flex-direction: column; 
-    height: 100%;
-    border-right: 2px solid #333;
-    background-color: #000; /* Ensures the gap doesn't look white */
-	min-width: 0; /* CRITICAL: Allows flex child to be smaller than its content */
+.left-col {
+  flex: 0 0 55%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-right: 2px solid #333;
+  background-color: #000; /* Ensures the gap doesn't look white */
+  min-width: 0; /* CRITICAL: Allows flex child to be smaller than its content */
 }
 
 .ticker-top {
-    height: 40px;
-    background: #6F4242;
-    border-bottom: 1px solid #333;
-    overflow: hidden; /* Clips the scrolling content */
-	width: 100%;     /* Keeps it within the left-col */
-    color: white;
-    padding: 10px 0;
-    box-sizing: border-box;
-    display: flex; /* Ensures content aligns properly */
-    align-items: center;
+  height: 40px;
+  background: #6F4242;
+  border-bottom: 1px solid #333;
+  overflow: hidden; /* Clips the scrolling content */
+  width: 100%; /* Keeps it within the left-col */
+  color: white;
+  padding: 10px 0;
+  box-sizing: border-box;
+  display: flex; /* Ensures content aligns properly */
+  align-items: center;
 }
 
 /* Push the video down slightly */
 .video-player-container {
-    flex: 0 0 auto;
-    width: 100%;
-    background: #000;
-    aspect-ratio: 16 / 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* ADD THIS: Space between ticker and video */
-    margin-top: 20px; 
-    border-top: 1px solid #222; /* Subtle visual break */
+  flex: 0 0 auto;
+  width: 100%;
+  background: #000;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Space between ticker and video */
+  margin-top: 20px;
+  border-top: 1px solid #222; /* Subtle visual break */
 }
 
 /* Ensure the video itself fits perfectly in its 16:9 box */
 video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Use 'contain' if you don't want any cropping */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Use 'contain' if you don't want any cropping */
 }
 
 /* Center the link area and keep it from stretching unnecessarily */
 .dash-links-container {
-    flex: 1; 
-    background: #ffffff;
-    padding: 15px 20px;
-    border-top: 1px solid #ddd;
-    
-    /* New: Vertical and horizontal centering logic */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centers content vertically */
-    align-items: center;     /* Centers content horizontally */
-	overflow-y: auto; /* Adds a scrollbar if the buttons exceed the space */
+  flex: 1;
+  background: #ffffff;
+  padding: 15px 20px;
+  border-top: 1px solid #ddd; /* Vertical and horizontal centering logic */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  overflow-y: auto; /* Adds a scrollbar if the buttons exceed the space */
 }
 
 /* Header adjusted for light background */
 .links-header {
-    text-align: center;
-    width: 100%;
-    color: #888; /* Soft grey text */
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    font-weight: bold;
-    letter-spacing: 1.5px;
-    margin-bottom: 15px;
+  text-align: center;
+  width: 100%;
+  color: #888; /* Soft grey text */
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  margin-bottom: 15px;
 }
 
 /* Make buttons smaller and more compact */
 .dash-link {
-    background: #fdfdfd;
-    color: #333333;      
-    text-decoration: none;
-    padding: 8px 12px;   /* Reduced padding for a smaller look */
-    border-radius: 4px;
-    text-align: center;
-    font-size: 0.8rem;   /* Smaller font size */
-    border: 1px solid #e0e0e0; 
-    transition: all 0.2s;
-    min-width: 120px;    /* Consistent but smaller width */
+  background: #fdfdfd;
+  color: #333333;
+  text-decoration: none;
+  padding: 8px 12px; /* Reduced padding for a smaller look */
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.8rem; /* Smaller font size */
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s;
+  min-width: 120px; /* Consistent but smaller width */
 }
 
 /* Center the grid items within the centered container */
 .links-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 8px;
-    width: 100%;
-    max-width: 600px; /* Prevents buttons from getting too wide on large screens */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  width: 100%;
+  max-width: 600px; /* Prevents buttons from getting too wide on large screens */
 }
 
 /* Enhanced hover effect */
 .dash-link:hover {
-    background: #f0f7ff; /* Very faint blue tint on hover */
-    border-color: #007bff;
-    color: #007bff;
-    transform: translateY(-1px); /* Slight lift animation */
+  background: #f0f7ff; /* Very faint blue tint on hover */
+  border-color: #007bff;
+  color: #007bff;
+  transform: translateY(-1px); /* Slight lift animation */
 }
-
 
 /* 1. Ensure the right column can shrink correctly */
 .right-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    color: #000;
-    overflow-y: auto;
-    text-align: center; /* Centers inline elements like <b>, <font>, and <i> tags */
-    padding: 20px 10px; /* Added more vertical padding for a better feel */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #000;
+  overflow-y: auto;
+  text-align: center; /* Centers inline elements like <b>, <font>, and <i> tags */
+  padding: 20px 10px; /* Added more vertical padding for a better feel */
 }
 
 /* 2. Make the chart table responsive */
 .chart-table {
-    margin-left: auto;  /* Classic way to center block-level elements */
-    margin-right: auto;
-    border-collapse: collapse;
+  margin-left: auto; /* Classic way to center block-level elements */
+  margin-right: auto;
+  border-collapse: collapse;
 }
 
 .chart-table td {
-    padding: 15px;
-    text-align: center;
-    vertical-align: middle;
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* 3. Make charts dynamically resize to fit the available space */
 .chart-table img {
-    max-width: 100%; /* Important: Prevents chart from being wider than its cell */
-    height: auto;    /* Maintains aspect ratio as it shrinks */
-    display: block;
-    margin: 0 auto;
-    border-radius: 4px;
+  max-width: 100%; /* Important: Prevents chart from being wider than its cell */
+  height: auto; /* Maintains aspect ratio as it shrinks */
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
 }
 
-.divider-v { 
-    border-left: 1px solid #eee; 
-    width: 1px; 
+.divider-v {
+  border-left: 1px solid #eee;
+  width: 1px;
 }
 
-hr { 
-    border: 0; 
-    border-top: 1px solid #eee; 
-    margin: 15px auto; 
-    width: 90%; 
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 15px auto;
+  width: 90%;
 }
 
 /* Bottom Ticker */
-.ticker-bottom { 
-    height: 48px; 
-    background: #ffffff;
-    border-top: 1px solid #333; 
-    width: 100%; 
+.ticker-bottom {
+  height: 48px;
+  background: #ffffff;
+  border-top: 1px solid #333;
+  width: 100%;
 }
 
-iframe { 
-    width: 100%; 
-    height: 100%; 
-    border: none; 
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
-
 
 .ticker-content {
   display: inline-block;
-  white-space: nowrap; 
+  white-space: nowrap;
   padding-left: 100%; /* Starts off-screen */
   animation: scroll 240s linear infinite; /* Animation speed can be adjusted */
 }
 
 /* Optional: Add a subtle separator between headlines */
 .ticker-item:after {
-    content: " | ";
-    margin: 0 10px;
+  content: " | ";
+  margin: 0 10px;
 }
 
 .ticker-item a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .ticker-item a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Pause animation on hover */
@@ -215,82 +209,77 @@ iframe {
   100% { transform: translateX(-100%); }
 }
 
-/* Accessibility: Stop motion for users who prefer it */
-/*@media (prefers-reduced-motion: reduce) {
-  .ticker-content {
-    animation: none;
-    white-space: normal;
-    padding-left: 0;
-  }
-}*/
-
-
 .duration-controls {
-    display: flex;
-    justify-content: center; /* Aligns the button group to the center */
-    margin: 15px 0;
+  display: flex;
+  justify-content: center; /* Aligns the button group to the center */
+  margin: 15px 0;
 }
 
 .dur-btn {
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 5px 12px;
-    margin: 0 2px;
-    cursor: pointer;
-    font-size: 0.8em;
-    border-radius: 3px;
-    transition: all 0.2s;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 12px;
+  margin: 0 2px;
+  cursor: pointer;
+  font-size: 0.8em;
+  border-radius: 3px;
+  transition: all 0.2s;
 }
 
 .dur-btn:hover {
-    background: #e0e0e0;
+  background: #e0e0e0;
 }
 
 .dur-btn.active {
-    background: #004a99;
-    color: white;
-    border-color: #003366;
+  background: #004a99;
+  color: white;
+  border-color: #003366;
 }
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-    .top-wrap {
-        flex-direction: column; /* Stacks Video on top of Charts */
-        overflow-y: auto;       /* Allows scrolling down the page */
-    }
+  .top-wrap {
+    flex-direction: column; /* Stacks Video on top of Charts */
+    overflow-y: auto; /* Allows scrolling down the page */
+  }
 
-    .left-col, .right-col {
-        flex: none;
-        width: 100%;
-        border-right: none;
-    }
+  .left-col {
+    flex: none;
+    width: 100%;
+    border-right: none;
+    overflow: visible; /* Required so the sticky position functions correctly */
+  }
 
-    .video-player-container {
-        aspect-ratio: 16 / 9; /* Keeps video proportional on small screens */
-    }
+  /* Keeps the exact same 16:9 size, but locks it to the top on scroll */
+  .video-player-container {
+    aspect-ratio: 16 / 9; 
+    margin-top: 20px; /* Maintained your original spacing */
+    position: -webkit-sticky; /* Safari support */
+    position: sticky;
+    top: 0;
+    z-index: 999; /* Keeps video layer layered on top of text/charts */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Adds a crisp edge over scrolling items underneath */
+  }
 
-    .chart-table td {
-        display: block; /* Stacks charts one per row for readability */
-        width: 100%;
-        padding: 10px 0;
-    }
-    
-    .chart-table img {
-        width: 95%; /* Makes charts fill the phone width */
-        height: auto;
-    }
+  .chart-table td {
+    display: block; /* Stacks charts one per row for readability */
+    width: 100%;
+    padding: 10px 0;
+  }
 
-    .links-grid {
-        grid-template-columns: 1fr 1fr; /* 2 columns of buttons instead of 4 */
-    }
+  .chart-table img {
+    width: 95%; /* Makes charts fill the phone width */
+    height: auto;
+  }
+
+  .links-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns of buttons instead of 4 */
+  }
 }
 
 /* 4. iPad-specific adjustment (Portrait mode) */
 @media screen and (max-width: 1024px) {
-    .chart-table td {
-        padding: 5px; /* Tighter spacing for smaller screens */
-    }
-    
-    /* If the charts are still too cramped, stack them in 1 column on iPad */
-    /* .chart-table td { display: block; width: 100%; } */
+  .chart-table td {
+    padding: 5px; /* Tighter spacing for smaller screens */
+  }
 }
