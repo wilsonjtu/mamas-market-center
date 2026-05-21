@@ -238,59 +238,57 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* Step 1: Force body frame to handle the scrolling mechanism */
+  /* Step 1: ABSOLUTELY prevent the core window frame from sliding or scrolling */
   body, html {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: auto;
+    overflow: hidden !important;
+    height: 100% !important;
+    position: fixed;
+    width: 100%;
   }
 
+  /* Step 2: Set layout container to stack vertically inside the fixed screen view */
   .top-wrap {
     flex-direction: column;
-    overflow: visible;
+    height: calc(100vh - 48px); /* Account for bottom ticker height */
+    overflow: hidden;
   }
 
-  .left-col {
-    display: block;
+  /* Step 3: Enforce regular layout presentation for the parent columns */
+  .left-col, .right-col {
     flex: none;
     width: 100%;
     height: auto;
-    border-right: none;
     overflow: visible;
+    border-right: none;
   }
 
-  /* Step 2: Lock video rigidly to viewport frame. It will never move. */
+  /* Step 4: Video box size remains perfectly 16:9 and anchored to layout top */
   .video-player-container {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: auto;
     aspect-ratio: 16 / 9;
     margin-top: 0;
-    z-index: 1000; /* Stays unconditionally on top */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    flex: 0 0 auto;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   }
 
-  /* Step 3: Push the links down precisely by 56.25vw (the math size of 16:9) */
+  /* Step 5: Convert links block into an isolated scrolling dashboard page */
   .dash-links-container {
-    margin-top: 56.25vw; 
-    flex: none;
-    overflow: visible;
-    height: auto;
-    width: 100%;
-    box-sizing: border-box;
+    flex: 1; /* Automatically consumes all leftover device viewport height */
+    overflow-y: auto !important; /* Forces scroll events to occur here ONLY */
+    -webkit-overflow-scrolling: touch; /* Crisp scrolling physics on mobile devices */
+    background: #ffffff;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    padding: 25px 20px;
   }
 
-  /* Step 4: Let charts stack and stream up under the video area */
+  /* Step 6: Feed charts directly inside the scroller stream right beneath links */
   .right-col {
-    flex: none;
-    overflow: visible;
-    height: auto;
-    width: 100%;
-    box-sizing: border-box;
+    background: #fff;
+    padding: 0;
+    margin-top: 15px;
   }
 
   .chart-table td {
