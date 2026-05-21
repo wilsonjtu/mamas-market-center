@@ -238,48 +238,61 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
+  /* Allow the entire window/body structure to scroll naturally */
+  body, html {
+    overflow: auto;
+    height: auto;
+  }
+
   .top-wrap {
-    flex-direction: column; /* Stacks Video on top of Charts */
-    overflow-y: auto; /* Allows scrolling down the page */
+    flex-direction: column; 
+    overflow: visible; 
   }
 
   .left-col {
     flex: none;
     width: 100%;
     border-right: none;
-    overflow: visible; /* Required so the sticky position functions correctly */
+    overflow: visible; 
+    height: auto; /* Allow height to stretch so elements don't get trapped */
   }
 
-  /* Keeps the exact same 16:9 size, but locks it to the top on scroll */
+  /* Sticky behavior rules are strictly applied to the container */
   .video-player-container {
     aspect-ratio: 16 / 9; 
-    margin-top: 20px; /* Maintained your original spacing */
-    position: -webkit-sticky; /* Safari support */
+    margin-top: 0; /* Cleans up the top alignment on mobile devices */
+    position: -webkit-sticky; 
     position: sticky;
     top: 0;
-    z-index: 999; /* Keeps video layer layered on top of text/charts */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Adds a crisp edge over scrolling items underneath */
+    z-index: 999; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+  }
+
+  /* Disable independent scrolling so it moves with the page layout */
+  .right-col {
+    overflow-y: visible; 
+    flex: none;
   }
 
   .chart-table td {
-    display: block; /* Stacks charts one per row for readability */
+    display: block; 
     width: 100%;
     padding: 10px 0;
   }
 
   .chart-table img {
-    width: 95%; /* Makes charts fill the phone width */
+    width: 95%; 
     height: auto;
   }
 
   .links-grid {
-    grid-template-columns: 1fr 1fr; /* 2 columns of buttons instead of 4 */
+    grid-template-columns: 1fr 1fr; 
   }
 }
 
 /* 4. iPad-specific adjustment (Portrait mode) */
 @media screen and (max-width: 1024px) {
   .chart-table td {
-    padding: 5px; /* Tighter spacing for smaller screens */
+    padding: 5px; 
   }
 }
