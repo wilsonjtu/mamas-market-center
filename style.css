@@ -238,61 +238,74 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* Allow the entire window/body structure to scroll naturally */
+  /* Step 1: Make the viewport frame scrollable */
   body, html {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     height: auto;
   }
 
+  /* Step 2: Unfold structural containers so they stack in one long line */
   .top-wrap {
-    flex-direction: column; 
-    overflow: visible; 
+    flex-direction: column;
+    overflow: visible;
   }
 
   .left-col {
+    display: block; /* Break flexbox behavior to allow natural flow */
     flex: none;
     width: 100%;
+    height: auto;
     border-right: none;
-    overflow: visible; 
-    height: auto; /* Allow height to stretch so elements don't get trapped */
+    overflow: visible;
   }
 
-  /* Sticky behavior rules are strictly applied to the container */
+  /* Step 3: Completely isolate the video and pin it to the viewport top */
   .video-player-container {
-    aspect-ratio: 16 / 9; 
-    margin-top: 0; /* Cleans up the top alignment on mobile devices */
-    position: -webkit-sticky; 
+    aspect-ratio: 16 / 9;
+    margin-top: 0;
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
-    z-index: 999; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
+    z-index: 1000; /* Stays fixed above everything */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 
-  /* Disable independent scrolling so it moves with the page layout */
+  /* Step 4: Reset the containers below so they pass smoothly under the video */
+  .dash-links-container,
   .right-col {
-    overflow-y: visible; 
     flex: none;
+    overflow: visible; /* Crucial: kills independent inner scrollbars */
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Remove conflicting centering code on mobile to prevent squished layouts */
+  .dash-links-container {
+    justify-content: flex-start;
+    padding: 25px 20px;
   }
 
   .chart-table td {
-    display: block; 
+    display: block;
     width: 100%;
     padding: 10px 0;
   }
 
   .chart-table img {
-    width: 95%; 
+    width: 95%;
     height: auto;
   }
 
   .links-grid {
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr 1fr;
   }
 }
 
 /* 4. iPad-specific adjustment (Portrait mode) */
 @media screen and (max-width: 1024px) {
   .chart-table td {
-    padding: 5px; 
+    padding: 5px;
   }
 }
