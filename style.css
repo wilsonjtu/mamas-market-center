@@ -238,63 +238,68 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* Prevent the background layout frame from moving */
+  /* STEP 1: Unlock the screen layout frame entirely so it is allowed to scroll */
   body, html {
-    overflow: hidden !important;
-    height: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
   }
 
+  /* STEP 2: Use flex column direction to force structural children to stack */
   .top-wrap {
-    display: block; /* Break flex structure to use manual spacing */
-    position: relative;
-    height: calc(100% - 48px); /* Account for bottom ticker */
-    overflow: hidden;
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+    /* Leave clear space at the top so content doesn't hide behind fixed video */
+    padding-top: 56.25vw; 
+    background: #ffffff; /* Base scroll backdrop */
   }
 
-  /* STEP 1: Lock the left column rigidly to the top of the mobile screen */
+  /* STEP 3: Change left-col into a fixed overlay housing ONLY the video element */
   .left-col {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: auto; /* Shrinks to wrap around the video precisely */
-    z-index: 1000;
+    height: auto;
+    z-index: 1000; /* Stays permanently on top of the glass viewport */
     border-right: none;
-    background-color: #121212;
+    background: #000;
   }
 
-  /* Keep video perfectly scaled */
-  .video-player-container {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    margin-top: 0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  }
-
-  /* STEP 2: Hide the desktop link container on mobile because it lives inside the locked box */
-  .dash-links-container {
+  /* Push down adjustments and tickers are hidden on mobile to maximize video visibility */
+  .ticker-top {
     display: none; 
   }
 
-  /* STEP 3: Re-use the right column as the single, main scroll track for mobile */
-  .right-col {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    overflow-y: auto !important; /* This is the ONLY item that scrolls on the page */
-    -webkit-overflow-scrolling: touch;
-    background: #fff;
-    
-    /* Crucial: Add a giant top padding equal to the video height so content starts underneath it */
-    padding-top: calc(56.25vw + 20px) !important; 
-    padding-bottom: 40px;
+  .video-player-container {
+    margin-top: 0;
+    border-top: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
   }
 
-  /* STEP 4: If you want links inside this scroll stream, you will need to inject them into HTML.
-     Otherwise, the charts table handles scrolling adjustments seamlessly */
+  /* STEP 4: Convert BOTH blocks into natural, stacked scrolling text layout steps */
+  .dash-links-container, 
+  .right-col {
+    display: flex !important; /* Reset to flex layout block */
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important; /* Disables competing internal scroll blocks completely */
+    background: #ffffff !important;
+    box-sizing: border-box;
+  }
+
+  .dash-links-container {
+    padding: 20px 15px 10px 15px;
+    border-top: none;
+  }
+
+  .right-col {
+    padding: 0 10px 40px 10px;
+  }
+
+  /* Chart Layout Alignments */
   .chart-table td {
     display: block;
     width: 100%;
@@ -308,7 +313,6 @@ iframe {
 
   .links-grid {
     grid-template-columns: 1fr 1fr;
-    margin-bottom: 25px; /* Spacing before charts start */
   }
 }
 
