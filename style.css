@@ -238,21 +238,20 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* Step 1: Make the viewport frame scrollable */
+  /* Step 1: Force body frame to handle the scrolling mechanism */
   body, html {
     overflow-y: auto;
     overflow-x: hidden;
     height: auto;
   }
 
-  /* Step 2: Unfold structural containers so they stack in one long line */
   .top-wrap {
     flex-direction: column;
     overflow: visible;
   }
 
   .left-col {
-    display: block; /* Break flexbox behavior to allow natural flow */
+    display: block;
     flex: none;
     width: 100%;
     height: auto;
@@ -260,31 +259,38 @@ iframe {
     overflow: visible;
   }
 
-  /* Step 3: Completely isolate the video and pin it to the viewport top */
+  /* Step 2: Lock video rigidly to viewport frame. It will never move. */
   .video-player-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
     margin-top: 0;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1000; /* Stays fixed above everything */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    z-index: 1000; /* Stays unconditionally on top */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
-  /* Step 4: Reset the containers below so they pass smoothly under the video */
-  .dash-links-container,
-  .right-col {
+  /* Step 3: Push the links down precisely by 56.25vw (the math size of 16:9) */
+  .dash-links-container {
+    margin-top: 56.25vw; 
     flex: none;
-    overflow: visible; /* Crucial: kills independent inner scrollbars */
+    overflow: visible;
     height: auto;
     width: 100%;
     box-sizing: border-box;
-  }
-
-  /* Remove conflicting centering code on mobile to prevent squished layouts */
-  .dash-links-container {
     justify-content: flex-start;
     padding: 25px 20px;
+  }
+
+  /* Step 4: Let charts stack and stream up under the video area */
+  .right-col {
+    flex: none;
+    overflow: visible;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .chart-table td {
