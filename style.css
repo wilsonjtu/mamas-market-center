@@ -238,72 +238,74 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* Prevent the main browser window wrapper from shifting */
+  /* STEP 1: Let the main layout wrapper become the mobile scroll engine */
   body, html {
-    overflow: hidden !important;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
   }
 
+  /* STEP 2: Use CSS Grid on the main wrapper. 
+     This acts as a shared parent container that binds both columns together. */
   .top-wrap {
-    display: block !important;
+    display: grid !important;
+    grid-template-columns: 1fr;
     position: relative;
     width: 100%;
-    height: calc(100vh - 48px); /* Full height minus bottom ticker */
+    height: auto;
+    background: #ffffff;
   }
 
-  /* Lock video to the very top glass of the viewport */
+  /* STEP 3: Lock the Left Column wrapper directly to the top glass of the mobile device. 
+     This forces the video inside it to stay permanently frozen. */
   .left-col {
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    width: 100vw !important;
-    height: auto !important;
-    z-index: 1000 !important;
-    background-color: #000;
-  }
-
-  .ticker-top {
-    display: none !important; /* Hide to save viewport vertical space */
-  }
-
-  .video-player-container {
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    margin-top: 0 !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Make this box the SINGLE scrolling track container for the entire page layout */
-  .dash-links-container {
-    position: absolute !important;
+    position: -webkit-sticky !important; /* Safari support */
+    position: sticky !important;
     top: 0;
     left: 0;
     width: 100% !important;
-    height: 100% !important;
-    overflow-y: auto !important; 
-    -webkit-overflow-scrolling: touch;
-    background: #ffffff !important;
-    box-sizing: border-box;
-    display: block !important;
-    
-    /* Gap equal to the 16:9 fixed video height */
-    padding-top: calc(56.25vw + 20px) !important;
-    padding-bottom: 60px !important;
+    height: auto !important;
+    z-index: 1000 !important; /* Keeps video layering strictly above scrolling items */
+    border-right: none;
+    background-color: #000;
   }
 
-  /* Format the charts inside the main list flow */
+  /* Completely hide inner flex elements we don't need on mobile */
+  .ticker-top {
+    display: none !important;
+  }
+
+  /* Clean up video placement box spacing */
+  .video-player-container {
+    margin-top: 0 !important;
+    border-top: none;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  /* STEP 4: Convert the content areas into fluid blocks that follow the grid stream. 
+     They lose their separate scroll tracks and flow up smoothly beneath the frozen video header. */
+  .dash-links-container, 
   .right-col {
     display: block !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important;
+    overflow: visible !important; /* Strips out independent inner scrollbars entirely */
     background: #ffffff !important;
-    padding: 0 !important;
-    margin-top: 30px !important;
+    box-sizing: border-box;
   }
 
+  .dash-links-container {
+    padding: 25px 15px 10px 15px;
+    border-top: none;
+  }
+
+  .right-col {
+    padding: 10px 10px 40px 10px;
+  }
+
+  /* Table and Image alignments */
   .chart-table td {
     display: block;
     width: 100%;
@@ -320,7 +322,7 @@ iframe {
   }
 }
 
-/* iPad portrait spacing rules */
+/* iPad Adjustments */
 @media screen and (max-width: 1024px) {
   .chart-table td {
     padding: 5px;
