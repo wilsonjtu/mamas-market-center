@@ -238,66 +238,62 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* STEP 1: Let the main layout wrapper become the mobile scroll engine */
+  /* STEP 1: Enable the primary root frame to scroll smoothly on mobile */
   body, html {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     height: auto !important;
   }
 
-  /* STEP 2: Use CSS Grid on the main wrapper. 
-     This acts as a shared parent container that binds both columns together. */
+  /* Flatten flex containers so everything stacks vertically */
   .top-wrap {
-    display: grid !important;
-    grid-template-columns: 1fr;
+    display: block !important;
     position: relative;
     width: 100%;
     height: auto;
     background: #ffffff;
+    /* Create empty whitespace layout room directly underneath the fixed video */
+    padding-top: 56.25vw !important; 
   }
 
-  /* STEP 3: Lock the Left Column wrapper directly to the top glass of the mobile device. 
-     This forces the video inside it to stay permanently frozen. */
+  /* STEP 2: Force the left layout column container to completely dissolve */
   .left-col {
-    position: -webkit-sticky !important; /* Safari support */
-    position: sticky !important;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: auto !important;
-    z-index: 1000 !important; /* Keeps video layering strictly above scrolling items */
-    border-right: none;
-    background-color: #000;
+    display: contents !important; 
   }
 
-  /* Completely hide inner flex elements we don't need on mobile */
+  /* Hide the top ticker layout components */
   .ticker-top {
     display: none !important;
   }
 
-  /* Clean up video placement box spacing */
+  /* STEP 3: Rigorously lock the video box relative to the smartphone screen viewport */
   .video-player-container {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    aspect-ratio: 16 / 9;
+    height: auto !important;
     margin-top: 0 !important;
     border-top: none;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background-color: #000;
+    z-index: 9999 !important; /* Forces absolute visibility over content background */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 
-  /* STEP 4: Convert the content areas into fluid blocks that follow the grid stream. 
-     They lose their separate scroll tracks and flow up smoothly beneath the frozen video header. */
+  /* STEP 4: Reset the content sections so they become plain text scroll blocks */
   .dash-links-container, 
   .right-col {
     display: block !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important; /* Strips out independent inner scrollbars entirely */
+    overflow: visible !important; /* Nukes separate layout scrolling completely */
     background: #ffffff !important;
     box-sizing: border-box;
   }
 
   .dash-links-container {
-    padding: 25px 15px 10px 15px;
+    padding: 20px 15px 10px 15px;
     border-top: none;
   }
 
@@ -305,7 +301,7 @@ iframe {
     padding: 10px 10px 40px 10px;
   }
 
-  /* Table and Image alignments */
+  /* Chart & Link Alignment Adjustments */
   .chart-table td {
     display: block;
     width: 100%;
@@ -322,7 +318,7 @@ iframe {
   }
 }
 
-/* iPad Adjustments */
+/* iPad Portrait mode spacings */
 @media screen and (max-width: 1024px) {
   .chart-table td {
     padding: 5px;
