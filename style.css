@@ -107,7 +107,13 @@ video {
   gap: 8px;
   width: 100%;
   max-width: 600px; /* Prevents buttons from getting too wide on large screens */
+  
+  /* NEW: Centers the entire grid container block horizontally on iPad/Desktop */
+  margin: 0 auto; 
+  /* NEW: Centers the rows of individual button blocks within the grid space */
+  justify-content: center; 
 }
+
 
 /* Enhanced hover effect */
 .dash-link:hover {
@@ -325,6 +331,7 @@ iframe {
 
   .links-grid {
     grid-template-columns: 1fr 1fr;
+    margin: 0 auto; /* Keeps it aligned nicely on small phone screens */
   }
 }
 
