@@ -130,35 +130,14 @@
         </div>
     </div>
 
-    <!-- External Script Dependencies -->
-	    <script src="news-ticker.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="video-logic.js"></script>
-    <script src="dashboard-logic.js"></script>
-
-<script>
-  function setupMobileLayout() {
-    const linksContainer = document.querySelector('.dash-links-container');
-    const rightCol = document.querySelector('.right-col');
-    const topWrap = document.querySelector('.top-wrap');
-
-    if (window.innerWidth <= 768) {
-      // Mobile view: Move the charts box inside the scrolling links block
-      if (linksContainer && rightCol && rightCol.parentNode !== linksContainer) {
-        linksContainer.appendChild(rightCol);
-      }
-    } else {
-      // Desktop view: Return the charts box back to its original desktop location
-      if (topWrap && rightCol && rightCol.parentNode !== topWrap) {
-        topWrap.appendChild(rightCol);
-      }
-    }
-  }
-
-  // Run the logic immediately on page load and whenever the screen is resized
-  window.addEventListener('DOMContentLoaded', setupMobileLayout);
-  window.addEventListener('resize', setupMobileLayout);
-</script>
+  <!-- External Script Dependencies -->
+  <script src="news-ticker.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="video-logic.js"></script>
+  <script src="dashboard-logic.js"></script>
+  
+  <!-- REMOVE THE OLD setupMobileLayout SCRIPT BLOCK THAT WAS PASTE HERE -->
 
 </body>
 </html>
+

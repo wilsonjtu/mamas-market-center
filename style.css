@@ -117,7 +117,7 @@ video {
   transform: translateY(-1px); /* Slight lift animation */
 }
 
-/* 1. Ensure the right column can shrink correctly */
+/* Ensure the right column can shrink correctly */
 .right-col {
   flex: 1;
   display: flex;
@@ -129,7 +129,7 @@ video {
   padding: 20px 10px; /* Added more vertical padding for a better feel */
 }
 
-/* 2. Make the chart table responsive */
+/* Make the chart table responsive */
 .chart-table {
   margin-left: auto; /* Classic way to center block-level elements */
   margin-right: auto;
@@ -142,7 +142,7 @@ video {
   vertical-align: middle;
 }
 
-/* 3. Make charts dynamically resize to fit the available space */
+/* Make charts dynamically resize to fit the available space */
 .chart-table img {
   max-width: 100%; /* Important: Prevents chart from being wider than its cell */
   height: auto; /* Maintains aspect ratio as it shrinks */
@@ -236,37 +236,39 @@ iframe {
   border-color: #003366;
 }
 
-/* Mobile Optimization */
+/* ==========================================================================
+   MOBILE OPTIMIZATION (THE FIX)
+   ========================================================================== */
 @media (max-width: 768px) {
-  /* STEP 1: Enable the primary root frame to scroll smoothly on mobile */
+  /* STEP 1: Turn the main background frame into the master mobile scrollbar track */
   body, html {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     height: auto !important;
   }
 
-  /* Flatten flex containers so everything stacks vertically */
+  /* Unfold columns into a single long vertical stack tape list */
   .top-wrap {
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
     position: relative;
-    width: 100%;
-    height: auto;
     background: #ffffff;
-    /* Create empty whitespace layout room directly underneath the fixed video */
+    /* Create empty whitespace layout space exactly equal to 16:9 widescreen mobile ratio */
     padding-top: 56.25vw !important; 
   }
 
-  /* STEP 2: Force the left layout column container to completely dissolve */
+  /* Dissolve left column box so video container can interact with glass screen layer */
   .left-col {
-    display: contents !important; 
+    display: contents !important;
   }
 
-  /* Hide the top ticker layout components */
+  /* Remove top dark brown ticker from mobile viewport layout logic entirely */
   .ticker-top {
     display: none !important;
   }
 
-  /* STEP 3: Rigorously lock the video box relative to the smartphone screen viewport */
+  /* STEP 2: Freeze video frame perfectly to the actual glass face of the device */
   .video-player-container {
     position: fixed !important;
     top: 0;
@@ -277,31 +279,32 @@ iframe {
     margin-top: 0 !important;
     border-top: none;
     background-color: #000;
-    z-index: 9999 !important; /* Forces absolute visibility over content background */
+    z-index: 9999 !important; /* Forces it to sit strictly above content tape */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   }
 
-  /* STEP 4: Reset the content sections so they become plain text scroll blocks */
+  /* STEP 3: Strip internal scroll bars so layout flows together as a single thread */
   .dash-links-container, 
   .right-col {
     display: block !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important; /* Nukes separate layout scrolling completely */
+    overflow: visible !important; 
     background: #ffffff !important;
+    border-right: none !important;
     box-sizing: border-box;
   }
 
+  /* Spacing padding transitions underneath fixed video box */
   .dash-links-container {
-    padding: 20px 15px 10px 15px;
-    border-top: none;
+    padding: 25px 15px 10px 15px !important;
   }
 
   .right-col {
-    padding: 10px 10px 40px 10px;
+    padding: 10px 10px 40px 10px !important;
   }
 
-  /* Chart & Link Alignment Adjustments */
+  /* Clean responsive cell dimensions for small phone viewports */
   .chart-table td {
     display: block;
     width: 100%;
@@ -318,7 +321,7 @@ iframe {
   }
 }
 
-/* iPad Portrait mode spacings */
+/* iPad Portrait view sizes */
 @media screen and (max-width: 1024px) {
   .chart-table td {
     padding: 5px;
