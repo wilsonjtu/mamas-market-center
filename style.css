@@ -238,68 +238,81 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* STEP 1: Unlock the screen layout frame entirely so it is allowed to scroll */
+  /* STEP 1: Lock down the core window shell so it's impossible for the page to slide away */
   body, html {
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    height: auto !important;
-  }
-
-  /* STEP 2: Use flex column direction to force structural children to stack */
-  .top-wrap {
-    flex-direction: column;
-    overflow: visible;
-    height: auto;
-    /* Leave clear space at the top so content doesn't hide behind fixed video */
-    padding-top: 56.25vw; 
-    background: #ffffff; /* Base scroll backdrop */
-  }
-
-  /* STEP 3: Change left-col into a fixed overlay housing ONLY the video element */
-  .left-col {
+    overflow: hidden !important;
     position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Destroy standard flex wrapping rules on the main layout block */
+  .top-wrap {
+    display: block !important;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 48px); /* Full screen minus bottom ticker */
+    overflow: hidden;
+  }
+
+  /* STEP 2: Freeze the video box wrapper permanently to the glass screen viewport */
+  .left-col {
+    position: fixed !important;
     top: 0;
     left: 0;
-    width: 100%;
-    height: auto;
-    z-index: 1000; /* Stays permanently on top of the glass viewport */
-    border-right: none;
-    background: #000;
-  }
-
-  /* Push down adjustments and tickers are hidden on mobile to maximize video visibility */
-  .ticker-top {
-    display: none; 
-  }
-
-  .video-player-container {
-    margin-top: 0;
-    border-top: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-  }
-
-  /* STEP 4: Convert BOTH blocks into natural, stacked scrolling text layout steps */
-  .dash-links-container, 
-  .right-col {
-    display: flex !important; /* Reset to flex layout block */
-    flex: none !important;
-    width: 100% !important;
+    width: 100vw !important;
     height: auto !important;
-    overflow: visible !important; /* Disables competing internal scroll blocks completely */
+    z-index: 1000 !important; /* Force it to stay cleanly stacked on top */
+    border-right: none;
+    background-color: #000;
+  }
+
+  /* Hide the top brown ticker on mobile to prevent layout overlapping */
+  .ticker-top {
+    display: none !important;
+  }
+
+  /* Keep the video locked to a strict 16:9 box shape */
+  .video-player-container {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 0 !important;
+    border-top: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* STEP 3: Convert the Links Box into the SINGLE scrolling engine on the device */
+  .dash-links-container {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important; /* Spans the full viewport box */
+    overflow-y: scroll !important; /* Forces scroll engine strictly inside this block */
+    -webkit-overflow-scrolling: touch; /* Fast mobile touch inertia */
     background: #ffffff !important;
     box-sizing: border-box;
+    display: block !important; /* Flatten inner flexboxes so items cascade naturally */
+    
+    /* CRITICAL SPACE BUFFER: Adds space exactly equal to the video box height, 
+       pushing your link items down out from under the fixed video window */
+    padding-top: calc(56.25vw + 20px) !important;
+    padding-bottom: 60px !important;
   }
 
-  .dash-links-container {
-    padding: 20px 15px 10px 15px;
-    border-top: none;
-  }
-
+  /* STEP 4: Force the charts container to naturally feed inline directly inside the scroller */
   .right-col {
-    padding: 0 10px 40px 10px;
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important; /* Prevents this box from spinning up a separate scroll lock */
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin-top: 30px !important; /* Clear gap separating your link grid and charts table */
   }
 
-  /* Chart Layout Alignments */
+  /* Chart Layout Adjustments */
   .chart-table td {
     display: block;
     width: 100%;
@@ -313,6 +326,7 @@ iframe {
 
   .links-grid {
     grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
   }
 }
 
