@@ -66,12 +66,16 @@ video {
   flex: 1;
   background: #ffffff;
   padding: 15px 20px;
-  border-top: 1px solid #ddd; /* Vertical and horizontal centering logic */
+  border-top: 1px solid #ddd;
   display: flex;
   flex-direction: column;
   justify-content: center; /* Centers content vertically */
-  align-items: center; /* Centers content horizontally */
-  overflow-y: auto; /* Adds a scrollbar if the buttons exceed the space */
+  
+  /* CRITICAL FIXES FOR IPAD: Forces everything inside to center horizontally */
+  align-items: center !important; 
+  text-align: center !important;   
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Header adjusted for light background */
