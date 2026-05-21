@@ -238,7 +238,7 @@ iframe {
 
 /* Mobile Optimization */
 @media (max-width: 768px) {
-  /* STEP 1: Lock down the core window shell so it's impossible for the page to slide away */
+  /* Prevent the main browser window wrapper from shifting */
   body, html {
     overflow: hidden !important;
     position: fixed;
@@ -246,73 +246,64 @@ iframe {
     height: 100%;
   }
 
-  /* Destroy standard flex wrapping rules on the main layout block */
   .top-wrap {
     display: block !important;
     position: relative;
     width: 100%;
-    height: calc(100vh - 48px); /* Full screen minus bottom ticker */
-    overflow: hidden;
+    height: calc(100vh - 48px); /* Full height minus bottom ticker */
   }
 
-  /* STEP 2: Freeze the video box wrapper permanently to the glass screen viewport */
+  /* Lock video to the very top glass of the viewport */
   .left-col {
     position: fixed !important;
     top: 0;
     left: 0;
     width: 100vw !important;
     height: auto !important;
-    z-index: 1000 !important; /* Force it to stay cleanly stacked on top */
-    border-right: none;
+    z-index: 1000 !important;
     background-color: #000;
   }
 
-  /* Hide the top brown ticker on mobile to prevent layout overlapping */
   .ticker-top {
-    display: none !important;
+    display: none !important; /* Hide to save viewport vertical space */
   }
 
-  /* Keep the video locked to a strict 16:9 box shape */
   .video-player-container {
     width: 100%;
     aspect-ratio: 16 / 9;
     margin-top: 0 !important;
-    border-top: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   }
 
-  /* STEP 3: Convert the Links Box into the SINGLE scrolling engine on the device */
+  /* Make this box the SINGLE scrolling track container for the entire page layout */
   .dash-links-container {
     position: absolute !important;
     top: 0;
     left: 0;
     width: 100% !important;
-    height: 100% !important; /* Spans the full viewport box */
-    overflow-y: scroll !important; /* Forces scroll engine strictly inside this block */
-    -webkit-overflow-scrolling: touch; /* Fast mobile touch inertia */
+    height: 100% !important;
+    overflow-y: auto !important; 
+    -webkit-overflow-scrolling: touch;
     background: #ffffff !important;
     box-sizing: border-box;
-    display: block !important; /* Flatten inner flexboxes so items cascade naturally */
+    display: block !important;
     
-    /* CRITICAL SPACE BUFFER: Adds space exactly equal to the video box height, 
-       pushing your link items down out from under the fixed video window */
+    /* Gap equal to the 16:9 fixed video height */
     padding-top: calc(56.25vw + 20px) !important;
     padding-bottom: 60px !important;
   }
 
-  /* STEP 4: Force the charts container to naturally feed inline directly inside the scroller */
+  /* Format the charts inside the main list flow */
   .right-col {
     display: block !important;
-    position: relative !important;
     width: 100% !important;
     height: auto !important;
-    overflow: visible !important; /* Prevents this box from spinning up a separate scroll lock */
+    overflow: visible !important;
     background: #ffffff !important;
     padding: 0 !important;
-    margin-top: 30px !important; /* Clear gap separating your link grid and charts table */
+    margin-top: 30px !important;
   }
 
-  /* Chart Layout Adjustments */
   .chart-table td {
     display: block;
     width: 100%;
@@ -326,11 +317,10 @@ iframe {
 
   .links-grid {
     grid-template-columns: 1fr 1fr;
-    margin: 0 auto;
   }
 }
 
-/* 4. iPad-specific adjustment (Portrait mode) */
+/* iPad portrait spacing rules */
 @media screen and (max-width: 1024px) {
   .chart-table td {
     padding: 5px;
